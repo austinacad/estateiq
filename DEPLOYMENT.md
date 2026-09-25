@@ -1,23 +1,20 @@
-# EstateIQ deployment workflow
+# EstateIQ on Vercel: staging first
 
-GitHub `main` is the imported V8 baseline. Use `develop` for changes and staging. Never connect `main` to automatic production publishing: production requires Austin's explicit approval for each release.
+GitHub is the source of truth. `main` holds the imported V8 baseline; `develop` holds ongoing work. Austin must approve a production release. Do not import the GitHub repository through Vercel's one-click Git setup: importing the default `main` branch can make an initial production deployment. Create a Vercel project without Git import and connect this repository through the guarded GitHub Actions preview workflow below.
 
-## What exists now
+## Current state
 
-- `develop` pushes run syntax checks, package the five pages and their assets, check local links, and save a staging artifact in GitHub Actions.
-- Only files in `dist/` are deployed. The Worker, deployment notes and repository files are excluded.
-- The live AI endpoint is blank in this version. Real accounts, client data, CRM and MLS feeds are not connected. Use fictional sample data only.
-- A staging deployment job is prepared but stays disabled until `STAGING_DEPLOY_ENABLED` is set to `true`. It deploys a **draft**, without `--prod`, to a separate Netlify staging site.
+- Pushes to `develop` check JavaScript syntax, package the five website pages and assets, check local links and the disabled live AI endpoint, and save a staging artifact.
+- `vercel.json` packages only `dist/` and disables Vercel's automatic Git deployments. GitHub Actions is the only prepared staging deployment path. No production deployment command or workflow exists.
+- The Vercel staging job remains off until the GitHub variable `STAGING_DEPLOY_ENABLED` is set to `true`. It uses `vercel deploy --prebuilt` **without** `--prod` and can only run on a `develop` push after validation passes.
+- The OpenAI Advisor remains a fictional-data demo because `live-ai-config.js` has a blank endpoint. Real customer data and live AI requests are not enabled.
 
-## Activate the live staging site
+## Enable a protected Vercel preview
 
-1. Create a separate **staging** site in Netlify. Do not connect its Git integration to `main` or enable automatic production deploys. The publish directory is `dist` (no build framework; run `node scripts/package-site.mjs --staging` for a manual build).
-2. Enable Netlify's deployment access protection on the staging site before sharing its URL. A draft URL and `robots.txt` do not restrict access.
-3. In GitHub repository Settings → Environments, create `staging`, allow deployments only from `develop`, and add environment secrets `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` for the **staging site**. Keep both values out of source.
-4. In GitHub Settings → Secrets and variables → Actions → Variables, set `STAGING_DEPLOY_ENABLED` to `true`. The next push to `develop` runs checks and deploys the static draft at an `estateiq-review` alias. Review the URL in the workflow run and test desktop, mobile, navigation and demo workflows.
+1. Connect the Vercel account and create an EstateIQ project **without importing GitHub or making a production deployment**. Configure Vercel Authentication with Standard Protection for preview URLs in the project settings. Confirm the project is protected before deploying.
+2. Add GitHub repository Settings → Environments → `staging`. Restrict it to `develop`. Add environment secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` for the Vercel project. Obtain the two IDs from the project's `.vercel/project.json` after linking with Vercel CLI, or from Vercel's project details. Keep the token out of Git and chat.
+3. In GitHub Settings → Secrets and variables → Actions → Variables, set `STAGING_DEPLOY_ENABLED` to `true`. Push a checked change to `develop`. The Actions run will build and deploy a Vercel **Preview** URL. Review it on desktop and mobile before any release.
 
-## Production release, later
+## Production, later
 
-Keep the production host disconnected from automatic `main` publishing. Open a pull request from `develop` to `main`, inspect the diff and staging preview, and wait for explicit approval before merging or publishing. Set up a separate production site and secrets only at release time. The production deployment must be a manual, approval-gated operation; a merge alone must not publish.
-
-The OpenAI Worker is separate from static hosting. `OPENAI_SETUP.md` describes it, but the development Worker lacks server-side authentication and rate limits. Do not activate its public URL or enter customer information until those controls are implemented and tested. CORS by itself is not authentication.
+There is no automatic production path. Keep `git.deploymentEnabled` disabled and do not add a `--prod` deployment command until Austin explicitly approves a reviewed release. Do not merge the staging pull request or change the production site before approval. The separate Cloudflare Worker needs server-side authentication, usage limits, and other controls before any real customer data or live Advisor access.

@@ -16,7 +16,6 @@ await cp(resolve(root, 'assets'), resolve(output, 'assets'), { recursive: true }
 
 if (process.argv.includes('--staging')) {
   await writeFile(resolve(output, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
-  await writeFile(resolve(output, '_headers'), '/*\n  X-Robots-Tag: noindex, nofollow\n');
 }
 
 console.log(`Packaged ${files.length} website files and assets in dist/`);
