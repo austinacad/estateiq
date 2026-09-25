@@ -2,7 +2,7 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..', 'dist');
-const pages = ['index.html', 'dashboard.html', 'auth.html', 'account.html', 'thank-you.html'];
+const pages = ['index.html', 'dashboard.html', 'auth.html', 'account.html', 'thank-you.html', 'booking.html'];
 const missing = [];
 
 for (const page of pages) {
