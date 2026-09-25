@@ -15,13 +15,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePilot();});
 document.querySelectorAll('[data-demo]').forEach(b=>b.addEventListener('click',()=>{window.location.href='dashboard.html';}));
 const form=document.getElementById('pilotForm');
 form?.addEventListener('submit',e=>{
-  // Netlify Forms processes the POST after publication. Local files have no form handler.
-  if(location.protocol==='file:' || ['localhost','127.0.0.1'].includes(location.hostname)){
-    e.preventDefault();
-    const note=document.getElementById('formNote');
-    note.textContent='Preview only: this request was NOT sent. Publish the folder to Netlify and enable Forms to collect submissions.';
-    note.style.color='#eec99c';
-  }
+  // This Vercel site has no intake endpoint, including on custom domains.
+  e.preventDefault();
+  const note=document.getElementById('formNote');
+  note.textContent='This form is not connected yet. Your request was not sent. You can book an intro call instead.';
+  note.style.color='#eec99c';
 });
 
 // Compact navigation for narrow screens.
