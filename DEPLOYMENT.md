@@ -12,7 +12,7 @@ The Vercel project is `estateiq-staging` in team `austinacad17-7635` (project `p
 - All customer names, listings, metrics, and advisor responses are fictional examples stored locally in the visitor's browser.
 - The sign-in screen is a design preview. Google, Apple, Microsoft, and email authentication are not connected. The dashboard demo is publicly accessible.
 - The OpenAI Advisor Worker is not deployed. `live-ai-config.js` has a blank endpoint, so the Advisor uses a scripted local simulation.
-- The pricing page describes proposed plans and gathers interest; billing and live trials are not active.
+- The pricing page describes proposed plans. Its trial request form still uses Netlify Forms and **does not collect submissions on Vercel**. Billing and live trials are not active. Do not promote the trial request flow as working until it is replaced and tested.
 
 ## Release controls
 
