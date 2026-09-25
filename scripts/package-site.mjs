@@ -4,9 +4,9 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const output = resolve(root, 'dist');
 const files = [
-  'index.html', 'dashboard.html', 'auth.html', 'account.html', 'thank-you.html',
+  'index.html', 'dashboard.html', 'auth.html', 'account.html', 'thank-you.html', 'booking.html',
   'styles.css', 'landing-v2.css', 'dashboard.css', 'auth.css',
-  'app.js', 'dashboard.js', 'auth.js', 'auth-config.js', 'live-ai-config.js',
+  'app.js', 'dashboard.js', 'auth.js', 'auth-config.js', 'live-ai-config.js', 'booking-config.js', 'booking.js',
 ];
 
 await rm(output, { recursive: true, force: true });
