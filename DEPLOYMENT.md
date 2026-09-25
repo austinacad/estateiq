@@ -13,8 +13,8 @@ GitHub is the source of truth. `main` holds the imported V8 baseline; `develop` 
 
 ## Enable a protected Vercel preview
 
-1. GitHub environment `staging` exists and allows only the `develop` branch. Its `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID` secrets point to the Vercel project. The remaining secret is `VERCEL_TOKEN`: create a token scoped to `estateiq-staging`, store it in this environment, and keep its value out of Git and chat. A 30-day token needs renewal when it expires.
-2. In GitHub Settings → Secrets and variables → Actions → Variables, set `STAGING_DEPLOY_ENABLED` to `true`. Push a checked change to `develop`. The Actions run will build and deploy a Vercel **Preview** URL. Review it on desktop and mobile before any release.
+1. GitHub environment `staging` exists and allows only the `develop` branch. Its `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID` secrets point to the Vercel project. `VERCEL_TOKEN` is also stored as a GitHub staging secret. Its Vercel scope is only `estateiq-staging`, and it expires October 24, 2026. Rotate it before then; keep its value out of Git and chat.
+2. GitHub Actions repository variable `STAGING_DEPLOY_ENABLED` is `true`. A checked `develop` push builds and deploys a Vercel **Preview** URL. Review it on desktop and mobile before any release.
 3. Check the project's Deployment Protection page again before sharing a preview. It currently shows Vercel Authentication on with Standard Protection, but its setting is locked in this Hobby account, so a direct access check on the actual preview is still required.
 
 ## Production, later
