@@ -35,3 +35,26 @@
 }
 html,body{max-width:100%;overflow-x:clip}
 img,svg{max-width:100%}
+
+/* Concierge offer and hosted appointment scheduling. */
+.service-section{background:radial-gradient(circle at 96% 9%,rgba(152,198,174,.13),transparent 47%),#0b1a15}
+.service-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:clamp(24px,6vw,90px);align-items:center}
+.service-layout h2,.booking-layout h1{font-family:Georgia,serif;font-weight:500;line-height:1.1;letter-spacing:-.035em;font-size:clamp(2.3rem,5vw,4.1rem);margin:13px 0 23px}
+.service-layout .lead,.booking-layout .lead{max-width:670px;line-height:1.7}
+.service-note{color:#b7cbbf;line-height:1.65;font-size:.96rem;margin:20px 0 25px}
+.service-steps{border:1px solid rgba(152,198,174,.2);border-radius:24px;background:#0d2119;padding:10px 26px}
+.service-steps>div{padding:22px 0;border-bottom:1px solid rgba(152,198,174,.15)}
+.service-steps>div:last-child{border-bottom:0}
+.service-steps span{font-size:.8rem;font-weight:700;color:#a3d8b7;margin-right:12px}
+.service-steps strong{font-size:1rem}
+.service-steps p{color:#aebeb5;line-height:1.55;margin:9px 0 0 34px}
+.booking-main{min-height:calc(100vh - 200px);padding:clamp(55px,9vw,120px) 0}
+.booking-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:clamp(28px,7vw,96px);align-items:start}
+.booking-list{padding-left:22px;line-height:2.1;color:#e3ede5}
+.booking-list li::marker{color:#98c6ae}
+.booking-panel{border:1px solid rgba(152,198,174,.28);border-radius:25px;background:linear-gradient(145deg,#153626,#0a1a15);padding:clamp(25px,4vw,42px);box-shadow:0 18px 45px #0005}
+.booking-panel h2{font-family:Georgia,serif;font-weight:500;font-size:clamp(1.7rem,3vw,2.45rem);line-height:1.2;margin:18px 0}
+.booking-panel p{color:#b9cec1;line-height:1.65}
+.booking-panel .btn{margin-top:10px}
+.booking-status{font-size:.93rem;margin:18px 0 0}
+@media(max-width:750px){.service-layout,.booking-layout{grid-template-columns:1fr}.service-layout{gap:30px}.booking-main{padding:65px 0}}
