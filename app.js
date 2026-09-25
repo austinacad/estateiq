@@ -16,10 +16,10 @@ document.querySelectorAll('[data-demo]').forEach(b=>b.addEventListener('click',(
 const form=document.getElementById('pilotForm');
 form?.addEventListener('submit',e=>{
   // Netlify Forms processes the POST after publication. Local files have no form handler.
-  if(location.protocol==='file:' || ['localhost','127.0.0.1'].includes(location.hostname)){
+  if(location.protocol==='file:' || ['localhost','127.0.0.1'].includes(location.hostname) || location.hostname.endsWith('.vercel.app')){
     e.preventDefault();
     const note=document.getElementById('formNote');
-    note.textContent='Preview only: this request was NOT sent. Publish the folder to Netlify and enable Forms to collect submissions.';
+    note.textContent='This form is not connected yet. Your request was not sent. Please wait for the pilot signup to open.';
     note.style.color='#eec99c';
   }
 });
