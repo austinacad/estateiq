@@ -1,0 +1,6 @@
+name = "estateiq-openai-advisor-dev"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+# Configure secrets with Wrangler, never here:
+# npx wrangler secret put OPENAI_API_KEY
+# npx wrangler secret put ALLOWED_ORIGIN

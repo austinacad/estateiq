@@ -1,0 +1,15 @@
+# Credentials and local settings
+.env
+.env.*
+!.env.example
+.dev.vars
+**/.dev.vars
+*.pem
+*.key
+# Tools / dependencies
+node_modules/
+.wrangler/
+.DS_Store
+Thumbs.db
+# Local outputs
+*.log

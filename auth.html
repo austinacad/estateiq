@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07110f"><title>Sign in · EstateIQ</title><meta name="description" content="Sign in to EstateIQ, or create an individual agent account. Brokerage agents join through an invitation."><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="auth.css"></head>
+<body class="auth-body" data-auth-page="login">
+<header class="auth-nav container"><a class="brand" href="index.html"><span class="brand-mark">⌂</span>EstateIQ</a><a class="auth-return" href="index.html">← Back to website</a></header>
+<main class="auth-layout container">
+  <section class="auth-story" aria-label="About EstateIQ">
+    <div class="eyebrow">THE INTELLIGENCE BEHIND EVERY MOVE</div>
+    <h1>Your business.<br><em>In sharper focus.</em></h1>
+    <p>One workspace for personalized property opportunities, your client relationships, and the next move that matters.</p>
+    <div class="story-card"><div class="story-icon">✦</div><div><span class="eyebrow">TODAY'S BRIEFING</span><strong>Better information. Clearer priorities.</strong><small>Sign in securely to continue building your business.</small></div></div>
+    <div class="story-foot">EstateIQ Agent &nbsp;·&nbsp; EstateIQ Brokerage</div>
+  </section>
+  <section class="auth-panel" aria-labelledby="authTitle">
+    <div class="auth-panel-top"><span class="auth-monogram">E<span>IQ</span></span><span class="auth-pill">PRIVATE PILOT</span></div>
+    <h2 id="authTitle">Welcome to EstateIQ.</h2><p class="auth-subtitle">Your intelligence command center is one sign-in away.</p>
+    <div id="authStatus" class="auth-status" role="status" aria-live="polite"></div>
+    <div id="authFormWrap">
+      <div class="auth-tabs" role="tablist" aria-label="Account action"><button type="button" id="tabSignIn" class="active" role="tab" aria-selected="true">Sign in</button><button type="button" id="tabCreate" role="tab" aria-selected="false">Create account</button></div>
+      <form id="emailAuthForm"><label for="authEmail">Work email</label><input id="authEmail" type="email" autocomplete="email" placeholder="you@brokerage.com" required maxlength="254"><button class="auth-main-button" id="emailSubmit" type="submit">Continue with email <span>→</span></button><p class="field-help">We'll send a secure one-time sign-in link. No password needed.</p></form>
+      <div class="auth-separator"><span>or continue with</span></div>
+      <div class="social-stack">
+        <button type="button" class="social-button" data-provider="google"><span class="provider-icon google-icon" aria-hidden="true">G</span>Continue with Google <span class="social-arrow">↗</span></button>
+        <button type="button" class="social-button" data-provider="apple"><span class="provider-icon apple-icon" aria-hidden="true">●</span>Continue with Apple <span class="social-arrow">↗</span></button>
+        <button type="button" class="social-button" data-provider="azure"><span class="provider-icon microsoft-icon" aria-hidden="true"><b></b><b></b><b></b><b></b></span>Continue with Microsoft <span class="social-arrow">↗</span></button>
+      </div>
+      <p class="auth-consent">Signing in with Google or Microsoft does <strong>not</strong> grant EstateIQ access to your email, calendar, or contacts. Those are separate, optional connections.</p>
+      <div class="invite-card"><span>◇</span><div><strong>Joining a brokerage?</strong><p>Use your individual sign-in method, then accept your brokerage's secure invitation. You don't need a separate account.</p></div></div>
+    </div>
+    <div id="signedInPanel" class="signed-in-panel" hidden><p class="auth-success">You're signed in as <strong id="signedInEmail"></strong>.</p><a class="auth-main-button" href="account.html">Manage your account →</a><a class="auth-secondary-link" href="dashboard.html">Explore fictional product demo</a><button class="signout-link" type="button" id="signOutHere">Sign out</button></div>
+    <div class="auth-bottom"><span>Just exploring?</span><a href="dashboard.html">Open the interactive demo ↗</a></div>
+  </section>
+</main>
+<footer class="auth-footer container"><span>© EstateIQ · Private pilot</span><span>Access to the demo is not a real customer account.</span></footer>
+<script src="auth-config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script><script src="auth.js" defer></script>
+</body></html>
