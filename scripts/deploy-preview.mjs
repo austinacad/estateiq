@@ -36,6 +36,31 @@ async function filesIn(dir, prefix = '') {
   return files;
 }
 
+// Vercel may classify the first deployment of an empty project as production,
+ // even when no production target was requested. Fail BEFORE uploading or creating
+ // a deployment unless the separate staging-only project has an approved READY
+ // bootstrap deployment. That bootstrap is a separate, explicit user decision.
+const historyResponse = await request(
+  `${api}/v6/deployments?teamId=${encodeURIComponent(teamId)}&projectId=${encodeURIComponent(projectId)}&limit=50`,
+  { headers: authorization },
+);
+const history = (await historyResponse.json()).deployments;
+if (!Array.isArray(history)) {
+  throw new Error('Could not verify Vercel staging deployment history; refusing deployment.');
+}
+const hasReadyBootstrap = history.some(deployment =>
+  deployment.projectId === projectId &&
+  deployment.target === 'production' &&
+  (deployment.readyState === 'READY' || deployment.state === 'READY')
+);
+if (!hasReadyBootstrap) {
+  throw new Error(
+    'Staging-only Vercel project has no READY bootstrap deployment. ' +
+    'Its first deployment may be classified as production. ' +
+    'Do not create one without Austin\'s explicit approval; see DEPLOYMENT.md.',
+  );
+}
+
 const root = path.resolve('dist');
 const files = await filesIn(root);
 if (!files.some(({ name }) => name === 'index.html')) {
@@ -55,7 +80,7 @@ for (const { name, full } of files) {
 }
 console.log(`Uploaded ${uploaded.length} checked staging files.`);
 
-// Omitting target is deliberate: Vercel assigns a preview URL, never a production alias.
+// Requesting an ordinary preview after the approved staging-only bootstrap. The API\n// treats an omitted target as preview on an initialized project; verify the result.
 const response = await request(`${api}/v13/deployments?teamId=${encodeURIComponent(teamId)}`, {
   method: 'POST',
   headers: { ...authorization, 'Content-Type': 'application/json' },
