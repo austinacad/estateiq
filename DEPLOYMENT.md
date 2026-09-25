@@ -1,22 +1,29 @@
-# EstateIQ on Vercel: staging first
+# EstateIQ Vercel deployment
 
-GitHub is the source of truth. `main` holds the imported V8 baseline; `develop` holds ongoing work. Austin must approve a production release. Do not import the GitHub repository through Vercel's one-click Git setup: importing the default `main` branch can make an initial production deployment. The Vercel project was created empty without Git import; connect this repository through the guarded GitHub Actions preview workflow below.
+GitHub is the source of truth. `main` holds the imported V8 baseline. `develop` holds later work and draft PR #1. The website is currently live as a **public product demo** on Vercel:
 
-## Current state
+https://estateiq-staging-2qv6yr8re-austinacad17-7635.vercel.app/
 
-- Vercel project: `estateiq-staging` in account `austinacad17-7635` (project ID `prj_1OcaMt4hVktXa2q0V6EsOezCpZd8`, team ID `team_DZs3GtK4asDQ9nIYQgwGIulH`). Created empty on September 25, 2026 UTC, with no production or preview deployment. Vercel Authentication currently shows Require Log In checked with Standard Protection, which covers preview URLs.
+The Vercel project is `estateiq-staging` in team `austinacad17-7635` (project `prj_1OcaMt4hVktXa2q0V6EsOezCpZd8`, team `team_DZs3GtK4asDQ9nIYQgwGIulH`). The initial live deployment was created from the checked `develop` package. Vercel classified this **first API deployment as Production** despite the request omitting a production target. Do not assume an omitted target is safe on a new project.
 
-- Pushes to `develop` check JavaScript syntax, package the five website pages and assets, check local links and the disabled live AI endpoint, and save a staging artifact.
-- `vercel.json` packages only `dist/` and disables Vercel's automatic Git deployments. GitHub Actions is the only prepared staging deployment path. No production deployment command or workflow exists.
-- The Vercel staging job remains off until the GitHub variable `STAGING_DEPLOY_ENABLED` is set to `true`. It uses `vercel deploy --prebuilt` **without** `--prod` and can only run on a `develop` push after validation passes.
-- The OpenAI Advisor remains a fictional-data demo because `live-ai-config.js` has a blank endpoint. Real customer data and live AI requests are not enabled.
+## What works now
 
-## Enable a protected Vercel preview
+- Landing page, interactive dashboard, and Advisor screens load at the generated Vercel URL.
+- All customer names, listings, metrics, and advisor responses are fictional examples stored locally in the visitor's browser.
+- The sign-in screen is a design preview. Google, Apple, Microsoft, and email authentication are not connected. The dashboard demo is publicly accessible.
+- The OpenAI Advisor Worker is not deployed. `live-ai-config.js` has a blank endpoint, so the Advisor uses a scripted local simulation.
+- The pricing page describes proposed plans and gathers interest; billing and live trials are not active.
 
-1. GitHub environment `staging` exists and allows only the `develop` branch. Its `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID` secrets point to the Vercel project. `VERCEL_TOKEN` is also stored as a GitHub staging secret. Its Vercel scope is only `estateiq-staging`, and it expires October 24, 2026. Rotate it before then; keep its value out of Git and chat.
-2. GitHub Actions repository variable `STAGING_DEPLOY_ENABLED` is `true`. A checked `develop` push builds and deploys a Vercel **Preview** URL. Review it on desktop and mobile before any release.
-3. Check the project's Deployment Protection page again before sharing a preview. It currently shows Vercel Authentication on with Standard Protection, but its setting is locked in this Hobby account, so a direct access check on the actual preview is still required.
+## Release controls
 
-## Production, later
+- Vercel Git deployments remain disabled in `vercel.json`; there is no automatic production release on a GitHub push.
+- GitHub `STAGING_DEPLOY_ENABLED` is `false`. The Vercel deployment job and unsafe API deployment script were removed from `develop` after the first API deployment selected Production. GitHub Actions now only validates, packages, and saves a staging artifact.
+- The GitHub `staging` environment is restricted to `develop` and has a project-only Vercel token expiring October 25, 2026. It cannot be used with `vercel pull` in the current CLI setup. Rotate or revoke it when a safe preview deployment method is chosen.
+- Vercel Authentication shows Standard Protection for preview deployments. It does **not** make the current production demo or its dashboard private.
+- Future edits to production require Austin's approval. Keep the draft PR unmerged until reviewed.
 
-There is no automatic production path. Keep `git.deploymentEnabled` disabled and do not add a `--prod` deployment command until Austin explicitly approves a reviewed release. Do not merge the staging pull request or change the production site before approval. The separate Cloudflare Worker needs server-side authentication, usage limits, and other controls before any real customer data or live Advisor access.
+## Next setup
+
+1. Establish a preview deployment method with its target verified **before** deploying; keep the public URL and any real customer workspace separate. A private dashboard needs real login and access control, not just a subdomain name.
+2. Connect a domain after Austin purchases it. Cloudflare can register/manage DNS while Vercel serves the site.
+3. Before offering real accounts or paid plans, add a production authentication and data backend, protect each customer's data, connect the AI Worker server-side, and set up billing. Do not enter real customer data into the current demo.
