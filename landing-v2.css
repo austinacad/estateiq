@@ -56,5 +56,6 @@ img,svg{max-width:100%}
 .booking-panel h2{font-family:Georgia,serif;font-weight:500;font-size:clamp(1.7rem,3vw,2.45rem);line-height:1.2;margin:18px 0}
 .booking-panel p{color:#b9cec1;line-height:1.65}
 .booking-panel .btn{margin-top:10px}
+.booking-panel .btn[hidden]{display:none}
 .booking-status{font-size:.93rem;margin:18px 0 0}
 @media(max-width:750px){.service-layout,.booking-layout{grid-template-columns:1fr}.service-layout{gap:30px}.booking-main{padding:65px 0}}
